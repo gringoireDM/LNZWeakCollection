@@ -8,9 +8,16 @@
 
 import Foundation
 
+fileprivate func synced(_ lock: AnyObject, closure: (() throws ->  Void)) rethrows {
+    objc_sync_enter(lock)
+    try closure()
+    objc_sync_exit(lock)
+}
+
 public struct LNZWeakCollection<T>: CustomStringConvertible, Sequence, IteratorProtocol {
     private var weakReferecesContainers: [LNZWeakContainer<AnyObject>] = [LNZWeakContainer<AnyObject>]()
     private var currentIndex: Int = 0
+    private let lockObject = NSObject()
     
     ///The count of nonnil objects stored in the array
     public var count: Int { return weakReferences.count }
@@ -33,10 +40,12 @@ public struct LNZWeakCollection<T>: CustomStringConvertible, Sequence, IteratorP
      does not have strong references to the object.
      */
     public mutating func add(object: T) {
-        guard weakReferecesContainers.filter({ $0.weakReference === object as AnyObject}).count == 0 else { return }
-        
-        let container = LNZWeakContainer(weakReference: object as AnyObject)
-        weakReferecesContainers.append(container)
+        synced(lockObject) {
+            guard weakReferecesContainers.filter({ $0.weakReference === object as AnyObject}).count == 0 else { return }
+            
+            let container = LNZWeakContainer(weakReference: object as AnyObject)
+            weakReferecesContainers.append(container)
+        }
     }
     
     /**
@@ -46,8 +55,13 @@ public struct LNZWeakCollection<T>: CustomStringConvertible, Sequence, IteratorP
      - parameter object: The object to be removed.
      */
     @discardableResult public mutating func remove(object: T)-> T? {
-        guard let index = weakReferecesContainers.index(where: { $0.weakReference === object as AnyObject }) else { return nil }
-        return weakReferecesContainers.remove(at: index).weakReference as? T
+        var result: T?
+        synced(lockObject) {
+            guard let index = weakReferecesContainers.index(where: { $0.weakReference === object as AnyObject }) else { return }
+            result = weakReferecesContainers.remove(at: index).weakReference as? T
+        }
+        
+        return result
     }
     
     /**
@@ -58,18 +72,22 @@ public struct LNZWeakCollection<T>: CustomStringConvertible, Sequence, IteratorP
      */
     public mutating func execute(_ closure: ((_ object: T) throws -> Void)) rethrows {
         cleanup()
-        try weakReferecesContainers.forEach { (weakContainer) in
-            guard let weakReference = weakContainer.weakReference as? T else { return }
-            try closure(weakReference)
+        try synced(lockObject) {
+            try weakReferecesContainers.forEach { (weakContainer) in
+                guard let weakReference = weakContainer.weakReference as? T else { return }
+                try closure(weakReference)
+            }
         }
     }
     
     ///Clean all the weak objects that are now nil
     internal mutating func cleanup() {
-        while let index = weakReferecesContainers.index(where: { $0.weakReference == nil }) {
-            weakReferecesContainers.remove(at: index)
-            if index < currentIndex {
-                currentIndex -= 1
+        synced(lockObject) {
+            while let index = weakReferecesContainers.index(where: { $0.weakReference == nil }) {
+                weakReferecesContainers.remove(at: index)
+                if index < currentIndex {
+                    currentIndex -= 1
+                }
             }
         }
     }
@@ -85,9 +103,13 @@ public struct LNZWeakCollection<T>: CustomStringConvertible, Sequence, IteratorP
     
     public mutating func next() -> T? {
         cleanup()
-        guard count > 0 && currentIndex < count else { return nil }
-        let object = weakReferences[currentIndex]
-        currentIndex += 1
-        return object
+        var result: T?
+        synced(lockObject) { 
+            guard count > 0 && currentIndex < count else { return }
+            let object = weakReferences[currentIndex]
+            currentIndex += 1
+            result = object
+        }
+        return result
     }
 }
