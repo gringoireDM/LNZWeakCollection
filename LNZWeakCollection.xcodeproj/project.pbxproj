@@ -10,6 +10,8 @@
 		50C0486E1E826C5000057F6C /* LNZWeakCollection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50C048641E826C4F00057F6C /* LNZWeakCollection.framework */; };
 		50C048731E826C5000057F6C /* LNZWeakCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C048721E826C5000057F6C /* LNZWeakCollectionTests.swift */; };
 		50C048751E826C5000057F6C /* LNZWeakCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = 50C048671E826C4F00057F6C /* LNZWeakCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50C048821E826CBC00057F6C /* LNZWeakContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C048811E826CBC00057F6C /* LNZWeakContainer.swift */; };
+		50C048841E826CEA00057F6C /* LNZWeakCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C048831E826CEA00057F6C /* LNZWeakCollection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		50C0486D1E826C5000057F6C /* LNZWeakCollectionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LNZWeakCollectionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50C048721E826C5000057F6C /* LNZWeakCollectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNZWeakCollectionTests.swift; sourceTree = "<group>"; };
 		50C048741E826C5000057F6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50C048811E826CBC00057F6C /* LNZWeakContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LNZWeakContainer.swift; sourceTree = "<group>"; };
+		50C048831E826CEA00057F6C /* LNZWeakCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LNZWeakCollection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				50C048671E826C4F00057F6C /* LNZWeakCollection.h */,
+				50C048801E826C9400057F6C /* Classes */,
 				50C048681E826C4F00057F6C /* Info.plist */,
 			);
 			path = LNZWeakCollection;
@@ -84,6 +89,15 @@
 				50C048741E826C5000057F6C /* Info.plist */,
 			);
 			path = LNZWeakCollectionTests;
+			sourceTree = "<group>";
+		};
+		50C048801E826C9400057F6C /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				50C048811E826CBC00057F6C /* LNZWeakContainer.swift */,
+				50C048831E826CEA00057F6C /* LNZWeakCollection.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +162,7 @@
 				TargetAttributes = {
 					50C048631E826C4F00057F6C = {
 						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					50C0486C1E826C5000057F6C = {
@@ -196,6 +211,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50C048841E826CEA00057F6C /* LNZWeakCollection.swift in Sources */,
+				50C048821E826CBC00057F6C /* LNZWeakContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +337,7 @@
 		50C048791E826C5000057F6C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -331,6 +349,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.pfrpg.LNZWeakCollection;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -338,6 +357,7 @@
 		50C0487A1E826C5000057F6C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -356,6 +376,7 @@
 		50C0487C1E826C5000057F6C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = LNZWeakCollectionTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.pfrpg.LNZWeakCollectionTests;
@@ -367,6 +388,7 @@
 		50C0487D1E826C5000057F6C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = LNZWeakCollectionTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.pfrpg.LNZWeakCollectionTests;
