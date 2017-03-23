@@ -46,7 +46,7 @@ public class TableViewDelegateProxy: NSObject, UITableViewDelegate {
 Weak collection conforms Sequence protocol so you can iterate through objects:
 
 ```Swift
-	var delegates = WeakCollection<UITableViewDelegate>()
+    var delegates = WeakCollection<UITableViewDelegate>()
 
     for (i, delegate) in delegates.enumerated() {
         delegate.tableView?(tableView, didSelectRowAt: indexPath)
