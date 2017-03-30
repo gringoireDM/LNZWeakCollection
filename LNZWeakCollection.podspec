@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
     s.author = { "Giuseppe Lanza" => "gringoire986@gmail.com" }
 
     s.source = {
-        :git => "git@github.com:gringoireDM/LNZWeakCollection.git",
+        :git => "https://github.com/gringoireDM/LNZWeakCollection.git",
         :tag => "v1.0.0"
     }
 
