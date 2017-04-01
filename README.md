@@ -57,3 +57,8 @@ Weak collection conforms Sequence protocol so you can iterate through objects:
     }
 ```
 
+To install it you can either drag and drop the two swift files in the project, or via cocoapod
+
+```
+    pod 'LNZWeakCollection'
+```
