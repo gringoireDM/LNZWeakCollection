@@ -32,8 +32,6 @@ public class WeakKeysDictionary<K: AnyObject&Hashable, V: AnyObject> {
     }
     
     public init(){}
-
-    
     
     public func set(_ object: V?, forKey key: K) {
         cleanup()
