@@ -9,9 +9,10 @@
 import XCTest
 @testable import LNZWeakCollection
 
-class LNZWeakCollectionTests: XCTestCase {
+class WeakCollectionTests: XCTestCase {
+    var weakCollection = WeakCollection<NSObject>()
+    
     func testAdd() {
-        var weakCollection = LNZWeakCollection<NSObject>()
         var objects = [NSObject]()
         for _ in 0..<10 {
             let object = NSObject()
@@ -30,7 +31,6 @@ class LNZWeakCollectionTests: XCTestCase {
     }
     
     func testRemove() {
-        var weakCollection = LNZWeakCollection<NSObject>()
         var objects = [NSObject]()
         for _ in 0..<10 {
             let object = NSObject()
@@ -58,7 +58,7 @@ class LNZWeakCollectionTests: XCTestCase {
     
     func testCleanUp() {
         var object: NSObject? = NSObject()
-        var weakCollection = LNZWeakCollection(with: object!)
+        weakCollection.add(object: object!)
         XCTAssertEqual(weakCollection.count, 1)
         
         weakCollection.cleanup()
@@ -70,7 +70,6 @@ class LNZWeakCollectionTests: XCTestCase {
     }
     
     func testIterability() {
-        var weakCollection = LNZWeakCollection<NSObject>()
         var objects = [NSObject]()
         for _ in 0..<10 {
             let object = NSObject()

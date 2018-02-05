@@ -8,28 +8,18 @@
 
 import Foundation
 
-fileprivate func synced(_ lock: AnyObject, closure: (() throws ->  Void)) rethrows {
-    objc_sync_enter(lock)
-    try closure()
-    objc_sync_exit(lock)
-}
-
-public struct LNZWeakCollection<T>: CustomStringConvertible, Sequence, IteratorProtocol {
-    private var weakReferecesContainers: [LNZWeakContainer<AnyObject>] = [LNZWeakContainer<AnyObject>]()
+public struct WeakCollection<T: AnyObject>: Sequence, IteratorProtocol {
+    private let queue = DispatchQueue(label: "read-write", qos: DispatchQoS.background, attributes: DispatchQueue.Attributes.concurrent, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.workItem, target: nil)
+    private var weakReferecesContainers: [WeakContainer<T>] = [WeakContainer<T>]()
     private var currentIndex: Int = 0
-    private let lockObject = NSObject()
     
     ///The count of nonnil objects stored in the array
     public var count: Int { return weakReferences.count }
     
     ///All the nonnil objects in the collection
-    public var weakReferences: [T] { return weakReferecesContainers.flatMap({ return $0.weakReference as? T }) }
+    public var weakReferences: [T] { return weakReferecesContainers.flatMap({ return $0.weakReference }) }
     
     public init(){}
-    
-    public init(with weakReference: T) {
-        add(object: weakReference)
-    }
     
     /**
      Add an object to the collection. A weak reference to this object will
@@ -40,10 +30,11 @@ public struct LNZWeakCollection<T>: CustomStringConvertible, Sequence, IteratorP
      does not have strong references to the object.
      */
     public mutating func add(object: T) {
-        synced(lockObject) {
-            guard weakReferecesContainers.filter({ $0.weakReference === object as AnyObject}).count == 0 else { return }
+        cleanup()
+        queue.sync(flags: .barrier) {
+            guard weakReferecesContainers.filter({ $0.weakReference === object}).count == 0 else { return }
             
-            let container = LNZWeakContainer(weakReference: object as AnyObject)
+            let container = WeakContainer(weakReference: object)
             weakReferecesContainers.append(container)
         }
     }
@@ -55,13 +46,11 @@ public struct LNZWeakCollection<T>: CustomStringConvertible, Sequence, IteratorP
      - parameter object: The object to be removed.
      */
     @discardableResult public mutating func remove(object: T)-> T? {
-        var result: T?
-        synced(lockObject) {
-            guard let index = weakReferecesContainers.index(where: { $0.weakReference === object as AnyObject }) else { return }
-            result = weakReferecesContainers.remove(at: index).weakReference as? T
+        cleanup()
+        return queue.sync(flags: .barrier) {
+            guard let index = weakReferecesContainers.index(where: { $0.weakReference === object }) else { return nil }
+            return weakReferecesContainers.remove(at: index).weakReference
         }
-        
-        return result
     }
     
     /**
@@ -72,17 +61,17 @@ public struct LNZWeakCollection<T>: CustomStringConvertible, Sequence, IteratorP
      */
     public mutating func execute(_ closure: ((_ object: T) throws -> Void)) rethrows {
         cleanup()
-        try synced(lockObject) {
+        try queue.sync(flags: .barrier) {
             try weakReferecesContainers.forEach { (weakContainer) in
-                guard let weakReference = weakContainer.weakReference as? T else { return }
+                guard let weakReference = weakContainer.weakReference else { return }
                 try closure(weakReference)
             }
         }
     }
     
     ///Clean all the weak objects that are now nil
-    internal mutating func cleanup() {
-        synced(lockObject) {
+    mutating func cleanup() {
+        queue.sync(flags: .barrier) {
             while let index = weakReferecesContainers.index(where: { $0.weakReference == nil }) {
                 weakReferecesContainers.remove(at: index)
                 if index < currentIndex {
@@ -92,24 +81,15 @@ public struct LNZWeakCollection<T>: CustomStringConvertible, Sequence, IteratorP
         }
     }
     
-    //MARK: CustomStringConvertible conformance
-    
-    public var description: String {
-        let descriptions = weakReferecesContainers.map { return $0.weakReference?.description ?? "nil" }
-        return descriptions.description
-    }
-    
     //MARK: IteratorProtocol and Sequence conformance
     
     public mutating func next() -> T? {
         cleanup()
-        var result: T?
-        synced(lockObject) { 
-            guard count > 0 && currentIndex < count else { return }
+        return queue.sync(flags: .barrier) {
+            guard count > 0 && currentIndex < count else { return nil }
             let object = weakReferences[currentIndex]
             currentIndex += 1
-            result = object
+            return object
         }
-        return result
     }
 }
