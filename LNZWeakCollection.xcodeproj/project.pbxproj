@@ -12,7 +12,8 @@
 		50C048751E826C5000057F6C /* LNZWeakCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = 50C048671E826C4F00057F6C /* LNZWeakCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50C048821E826CBC00057F6C /* WeakContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C048811E826CBC00057F6C /* WeakContainer.swift */; };
 		50C048841E826CEA00057F6C /* WeakCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C048831E826CEA00057F6C /* WeakCollection.swift */; };
-		50EF729C2029034500760684 /* WeakKeysDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF729B2029034500760684 /* WeakKeysDictionary.swift */; };
+		50C1492F2029CC65008BFFDE /* WeakValuesDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C1492E2029CC65008BFFDE /* WeakValuesDictionaryTests.swift */; };
+		50EF729C2029034500760684 /* WeakDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF729B2029034500760684 /* WeakDictionary.swift */; };
 		50EF729E20290C8800760684 /* WeakKeysDictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50EF729D20290C8800760684 /* WeakKeysDictionaryTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,7 +36,8 @@
 		50C048741E826C5000057F6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50C048811E826CBC00057F6C /* WeakContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeakContainer.swift; sourceTree = "<group>"; };
 		50C048831E826CEA00057F6C /* WeakCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeakCollection.swift; sourceTree = "<group>"; };
-		50EF729B2029034500760684 /* WeakKeysDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakKeysDictionary.swift; sourceTree = "<group>"; };
+		50C1492E2029CC65008BFFDE /* WeakValuesDictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakValuesDictionaryTests.swift; sourceTree = "<group>"; };
+		50EF729B2029034500760684 /* WeakDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakDictionary.swift; sourceTree = "<group>"; };
 		50EF729D20290C8800760684 /* WeakKeysDictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakKeysDictionaryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +93,7 @@
 			children = (
 				50C048721E826C5000057F6C /* WeakCollectionTests.swift */,
 				50EF729D20290C8800760684 /* WeakKeysDictionaryTests.swift */,
+				50C1492E2029CC65008BFFDE /* WeakValuesDictionaryTests.swift */,
 				50C048741E826C5000057F6C /* Info.plist */,
 			);
 			path = LNZWeakCollectionTests;
@@ -101,7 +104,7 @@
 			children = (
 				50C048811E826CBC00057F6C /* WeakContainer.swift */,
 				50C048831E826CEA00057F6C /* WeakCollection.swift */,
-				50EF729B2029034500760684 /* WeakKeysDictionary.swift */,
+				50EF729B2029034500760684 /* WeakDictionary.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -219,7 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50C048841E826CEA00057F6C /* WeakCollection.swift in Sources */,
-				50EF729C2029034500760684 /* WeakKeysDictionary.swift in Sources */,
+				50EF729C2029034500760684 /* WeakDictionary.swift in Sources */,
 				50C048821E826CBC00057F6C /* WeakContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -230,6 +233,7 @@
 			files = (
 				50C048731E826C5000057F6C /* WeakCollectionTests.swift in Sources */,
 				50EF729E20290C8800760684 /* WeakKeysDictionaryTests.swift in Sources */,
+				50C1492F2029CC65008BFFDE /* WeakValuesDictionaryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

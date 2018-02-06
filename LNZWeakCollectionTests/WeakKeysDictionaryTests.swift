@@ -9,20 +9,26 @@
 import XCTest
 @testable import LNZWeakCollection
 
-
-class Key: NSObject {
-    var keyValue: String
+class Key: Hashable {
+    var hashValue: Int
+    
+    static func ==(lhs: Key, rhs: Key) -> Bool {
+        return lhs.stringValue == rhs.stringValue
+    }
+    
+    let stringValue: String
     
     init(withString value: String) {
-        keyValue = value
+        stringValue = value
+        hashValue = value.hashValue
     }
 }
 
 class WeakKeysDictionaryTests: XCTestCase {
-    var weakDictionary = WeakKeysDictionary<Key, NSObject>()
+    var weakDictionary = WeakDictionary<Key, NSObject>(withWeakRelation: .weakToStrong)
     
     func testAdd() {
-        let key = Key(withString: "Name")
+        let key = Key(withString: "name")
         let value = NSObject()
         
         weakDictionary[key] = value
@@ -31,15 +37,15 @@ class WeakKeysDictionaryTests: XCTestCase {
     }
     
     func testWeakKey() {
-        var key: Key! = Key(withString: "Name")
+        var key: Key! = Key(withString: "name")
         let value = NSObject()
         
         weakDictionary[key] = value
         
         XCTAssertEqual(value, weakDictionary[key])
         key = nil
-        XCTAssertNil(weakDictionary[Key(withString: "Name")])
+        
+        XCTAssertEqual(0, weakDictionary.count)
+        XCTAssertNil(weakDictionary[Key(withString: "name")])
     }
-    
-    
 }
