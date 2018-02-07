@@ -21,11 +21,11 @@ class MyProxy: NSObject, UITableViewDelegate {
 
 This of course will work. But it is not flexible at all. You can have just 2 delegates, and clearly if you want more you have to add delegate3 var, remember to update all your methods and so on.
 
-What's the solution to this issue? We want to be more flexible so that we can avoid a lot of monkey work. We cannot use arrays because they will retain the object ending in a retain cycle, and also we can't use NSHashTable because they don't work with generics, so we cannot be sure of what Jimmy (Clueless new developer that just approach for the first time to the project) will put inside that NSHashTable...
+What's the solution to this issue? We want to be more flexible so that we can avoid a lot of monkey work. We cannot use arrays because they will retain the object ending in a retain cycle, and also we can't really use NSHashTable and NSMapTable because their zeroing behavior is not always what you would expect. [NSMapTable](http://cocoamine.net/blog/2013/12/13/nsmaptable-and-zeroing-weak-references/) in particular retains the object until the data structure needs a resize. What this means is unclear but the takeaway is that if you want the weak reference to be released they are unreliable.
 
-LNZWeakCollection is the answer. A Sequence of weak references to objects that is type safe, accepts protocols as specializer and cleanups itself when a weak becomes nil.
+LNZWeakCollection comes with a collection of weak references (WeakCollection) and a dictionary with weak keys or weak values (WeakDictionary).
 
-With this class it will be possible to do something like this
+Using WeakCollection it will be possible to do something like this
 
 ```Swift
 public class TableViewDelegateProxy: NSObject, UITableViewDelegate {
@@ -57,7 +57,7 @@ Weak collection conforms Sequence protocol so you can iterate through objects:
     }
 ```
 
-To install it you can either drag and drop the two swift files in the project, or via cocoapod
+To install it you can either drag and drop the swift files in the project, or via cocoapod
 
 ```
     pod 'LNZWeakCollection'
