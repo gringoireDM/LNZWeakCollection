@@ -1,14 +1,13 @@
 Pod::Spec.new do |s|
 
     s.platform = :ios
-    s.version = "1.1.0"
+    s.version = "1.1.1"
     s.ios.deployment_target = '10.0'
     s.name = "LNZWeakCollection"
  	s.summary      = "A swift collection to store weak references to objects."
 
   	s.description  = <<-DESC
-                   LNZWeakCollection is a collection of weak references to objects. It accepts protocols as type specializer and cleanups itself when a weak reference becomes nil.
-                   Useful for implementations of multiple observer in delegate patterns.
+                   LNZWeakCollection has implementations for collections of weak references to objects and dictionary with weak keys or weak values.
                    DESC
                    
     s.requires_arc = true
@@ -19,7 +18,7 @@ Pod::Spec.new do |s|
 
     s.source = {
         :git => "https://github.com/gringoireDM/LNZWeakCollection.git",
-        :tag => "v1.1.0"
+        :tag => "v1.1.1"
     }
 
     s.framework = "Foundation"

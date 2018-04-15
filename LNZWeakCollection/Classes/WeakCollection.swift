@@ -17,7 +17,7 @@ public struct WeakCollection<T: AnyObject>: Sequence, IteratorProtocol {
     public var count: Int { return weakReferences.count }
     
     ///All the nonnil objects in the collection
-    public var weakReferences: [T] { return weakReferecesContainers.flatMap({ return $0.weakReference }) }
+    public var weakReferences: [T] { return weakReferecesContainers.compactMap({ return $0.weakReference }) }
     
     public init(){}
     
