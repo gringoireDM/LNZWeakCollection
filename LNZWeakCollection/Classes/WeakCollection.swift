@@ -9,7 +9,7 @@
 import Foundation
 
 public struct WeakCollection<T: AnyObject>: Sequence, IteratorProtocol {
-    private let queue = DispatchQueue(label: "read-write", qos: DispatchQoS.background, attributes: DispatchQueue.Attributes.concurrent, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.workItem, target: nil)
+    private let queue = DispatchQueue(label: "read-write", qos: DispatchQoS.background, attributes: DispatchQueue.Attributes.concurrent)
     private var weakReferecesContainers: [WeakContainer<T>] = [WeakContainer<T>]()
     private var currentIndex: Int = 0
     

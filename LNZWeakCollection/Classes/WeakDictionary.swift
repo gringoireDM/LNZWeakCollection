@@ -90,7 +90,7 @@ public class WeakDictionary<K: AnyObject&Hashable, V: AnyObject> {
         }
     }
     
-    private let queue = DispatchQueue(label: "read-write", qos: DispatchQoS.background, attributes: DispatchQueue.Attributes.concurrent, autoreleaseFrequency: DispatchQueue.AutoreleaseFrequency.workItem, target: nil)
+    private let queue = DispatchQueue(label: "read-write", qos: DispatchQoS.background, attributes: DispatchQueue.Attributes.concurrent)
     
     private var weakReferenceContainer: Container
 
