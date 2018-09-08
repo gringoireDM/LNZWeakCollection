@@ -3,6 +3,7 @@ Pod::Spec.new do |s|
     s.platform = :ios
     s.version = "1.1.2"
     s.ios.deployment_target = '8.0'
+    s.swift_version = '4.2'
     s.name = "LNZWeakCollection"
  	s.summary      = "A swift collection to store weak references to objects."
 
