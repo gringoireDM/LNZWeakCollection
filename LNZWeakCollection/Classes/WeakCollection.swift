@@ -72,12 +72,10 @@ public struct WeakCollection<T: AnyObject>: Sequence, IteratorProtocol {
     ///Clean all the weak objects that are now nil
     mutating func cleanup() {
         queue.sync(flags: .barrier) {
-            while let index = weakReferecesContainers.index(where: { $0.weakReference == nil }) {
-                weakReferecesContainers.remove(at: index)
-                if index < currentIndex {
-                    currentIndex -= 1
-                }
-            }
+            let count = weakReferecesContainers.count
+            let last = weakReferecesContainers.stablePartition(isSuffixElement: { $0 == nil })
+            let nilCount = count - last + 1
+            weakReferecesContainers.removeLast(nilCount)
         }
     }
     
