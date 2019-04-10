@@ -48,7 +48,7 @@ public struct WeakCollection<T: AnyObject>: Sequence, IteratorProtocol {
     @discardableResult public mutating func remove(object: T)-> T? {
         cleanup()
         return queue.sync(flags: .barrier) {
-            guard let index = weakReferecesContainers.index(where: { $0.weakReference === object }) else { return nil }
+            guard let index = weakReferecesContainers.firstIndex(where: { $0.weakReference === object }) else { return nil }
             return weakReferecesContainers.remove(at: index).weakReference
         }
     }
@@ -72,7 +72,7 @@ public struct WeakCollection<T: AnyObject>: Sequence, IteratorProtocol {
     ///Clean all the weak objects that are now nil
     mutating func cleanup() {
         queue.sync(flags: .barrier) {
-            while let index = weakReferecesContainers.index(where: { $0.weakReference == nil }) {
+            while let index = weakReferecesContainers.firstIndex(where: { $0.weakReference == nil }) {
                 weakReferecesContainers.remove(at: index)
                 if index < currentIndex {
                     currentIndex -= 1

@@ -28,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		50182A49225DFCFD0079B81A /* LNZWeakCollection.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = LNZWeakCollection.podspec; sourceTree = "<group>"; };
 		50C048641E826C4F00057F6C /* LNZWeakCollection.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LNZWeakCollection.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50C048671E826C4F00057F6C /* LNZWeakCollection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LNZWeakCollection.h; sourceTree = "<group>"; };
 		50C048681E826C4F00057F6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -63,6 +64,7 @@
 		50C0485A1E826C4F00057F6C = {
 			isa = PBXGroup;
 			children = (
+				50182A49225DFCFD0079B81A /* LNZWeakCollection.podspec */,
 				50C048661E826C4F00057F6C /* LNZWeakCollection */,
 				50C048711E826C5000057F6C /* LNZWeakCollectionTests */,
 				50C048651E826C4F00057F6C /* Products */,
@@ -166,27 +168,28 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Giuseppe Lanza";
 				TargetAttributes = {
 					50C048631E826C4F00057F6C = {
 						CreatedOnToolsVersion = 8.2.1;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					50C0486C1E826C5000057F6C = {
 						CreatedOnToolsVersion = 8.2.1;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = 50C0485E1E826C4F00057F6C /* Build configuration list for PBXProject "LNZWeakCollection" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 50C0485A1E826C4F00057F6C;
 			productRefGroup = 50C048651E826C4F00057F6C /* Products */;
@@ -380,7 +383,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -400,7 +403,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.pfrpg.LNZWeakCollection;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -412,7 +415,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.pfrpg.LNZWeakCollectionTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -424,7 +427,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.pfrpg.LNZWeakCollectionTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
