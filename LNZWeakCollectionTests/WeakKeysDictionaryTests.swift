@@ -55,8 +55,8 @@ class WeakKeysDictionaryTests: XCTestCase {
         weakDictionary[key] = value
         
         XCTAssertEqual(value, weakDictionary[key])
-        key = nil
         
+        autoreleasepool { key = nil }
         XCTAssertEqual(0, weakDictionary.count)
         XCTAssertNil(weakDictionary[Key(withString: "name")])
     }

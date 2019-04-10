@@ -15,12 +15,15 @@ public struct WeakContainer<T: AnyObject> {
 public struct WeakHashableContainer<T: AnyObject&Hashable>: Hashable {
     public weak var weakReference: T?
     
+    let hashing: Int
+    
     init(withObject object: T) {
         weakReference = object
+        hashing = object.hashValue
     }
     
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(weakReference)
+        hasher.combine(hashing)
     }
     
     public static func ==(lhs: WeakHashableContainer<T>, rhs: WeakHashableContainer<T>) -> Bool {

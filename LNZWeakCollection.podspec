@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
     s.platform = :ios
-    s.version = "1.3.0"
+    s.version = "1.3.1"
     s.ios.deployment_target = '8.0'
     s.swift_version = '5.0'
     s.name = "LNZWeakCollection"
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
 
     s.source = {
         :git => "https://github.com/gringoireDM/LNZWeakCollection.git",
-        :tag => "v1.3.0"
+        :tag => "v1.3.1"
     }
 
     s.framework = "Foundation"
