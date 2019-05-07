@@ -60,4 +60,18 @@ class WeakKeysDictionaryTests: XCTestCase {
         XCTAssertEqual(0, weakDictionary.count)
         XCTAssertNil(weakDictionary[Key(withString: "name")])
     }
+    
+    func testHashableContainer() {
+        var a: NSObject? = NSObject()
+        var b: NSObject? = NSObject()
+        
+        let aContainer = WeakHashableContainer(withObject: a!)
+        let bContainer = WeakHashableContainer(withObject: b!)
+        
+        a = nil
+        b = nil
+        
+        XCTAssertFalse(aContainer.hashValue == bContainer.hashValue)
+        XCTAssertFalse(aContainer == bContainer)
+    }
 }

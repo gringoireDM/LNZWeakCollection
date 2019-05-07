@@ -27,8 +27,10 @@ public struct WeakHashableContainer<T: AnyObject&Hashable>: Hashable {
     }
     
     public static func ==(lhs: WeakHashableContainer<T>, rhs: WeakHashableContainer<T>) -> Bool {
-        return lhs.weakReference == rhs.weakReference
+        switch (lhs.weakReference, rhs.weakReference) {
+        case let (.some(a), .some(b)): return a == b
+        case (.some, .none), (.none, .some): return false
+        case (.none, .none): return lhs.hashValue == rhs.hashValue
+        }
     }
-    
-    
 }
