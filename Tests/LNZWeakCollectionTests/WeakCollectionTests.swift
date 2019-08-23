@@ -1,0 +1,1 @@
+../../LNZWeakCollectionTests/WeakCollectionTests.swift

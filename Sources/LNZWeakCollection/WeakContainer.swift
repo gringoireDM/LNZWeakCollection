@@ -1,0 +1,1 @@
+../../LNZWeakCollection/Classes/WeakContainer.swift
